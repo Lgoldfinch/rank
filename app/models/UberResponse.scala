@@ -1,6 +1,6 @@
 package models
 
-case class UberResponse(products: Set[Product])
+case class UberResponse(taxis: Set[Product]) extends ResponseToAvailableTaxis[Product]
 
 case class Product(isUpfrontFareEnabled: Boolean,
                    capacity: Int,
@@ -12,6 +12,6 @@ case class Product(isUpfrontFareEnabled: Boolean,
                    shortDescription: String,
                    productGroup: String,
                    description: String
-                  )
+                  ) extends AvailableTaxi
 
 
