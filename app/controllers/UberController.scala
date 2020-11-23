@@ -5,8 +5,4 @@ import play.api.mvc.{AbstractController, ControllerComponents}
 
 @Singleton
 class UberController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-
-  def get = Action {
-    Ok()
-  }
 }

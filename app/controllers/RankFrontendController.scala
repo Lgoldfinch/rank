@@ -20,7 +20,6 @@ class RankFrontendController @Inject()(cc: ControllerComponents) extends Abstrac
 
   private val lifts = AvailableLifts(Set(trialLift1, trialLift2, trialLift3))
 
-//
   implicit val liftFormats: Format[Lift] = Json.format[Lift]
   implicit val availableLiftsFormats: Format[AvailableLifts] = Json.format[AvailableLifts]
 
