@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   jdbc,
   ehcache,
   ws,
+  "com.uber.sdk" % "uber-core-oauth-client-adapter" % "0.8.0",
   "com.uber.sdk" % "uber-rides" % "0.8.0",
     specs2 % Test , guice)
 

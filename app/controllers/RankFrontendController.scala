@@ -24,8 +24,8 @@ class RankFrontendController @Inject()(uberConnector: UberConnector, cc: Control
   implicit val liftFormats: Format[Lift] = Json.format[Lift]
   implicit val availableLiftsFormats: Format[AvailableLifts] = Json.format[AvailableLifts]
 
-  val latitude = "37.7752315"
-  val longitude = "122.418075"
+  val latitude = 37.7752315.toFloat
+  val longitude = 122.418075.toFloat
 
   val position = PositionRequested(latitude, longitude)
 
@@ -33,12 +33,10 @@ class RankFrontendController @Inject()(uberConnector: UberConnector, cc: Control
     val liftsAsJson = Json.toJson(lifts)
 
     val availableUbers = uberConnector.getUbers(position)
-    availableUbers.map( a => {
-        println(a.json)
-    })
+
     Ok(liftsAsJson)
   }
 }
 
-case class PositionRequested(latitude: String, longitude: String)
+case class PositionRequested(latitude: Float, longitude: Float)
 
