@@ -7,6 +7,6 @@
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                                   controllers.Assets.versioned(path="/public", file: Asset)
 
-POST    /products/:latitude/:longitude                  controllers.RankFrontendController.availableLifties(latitude: Float, longitude: Float)
+POST    /products                                       controllers.RankFrontendController.availableLifties()
 
 #GET     /getUbers/:latitude/:longitude                  connectors.UberConnector.getUbers(latitude: Float, longitude: Float)

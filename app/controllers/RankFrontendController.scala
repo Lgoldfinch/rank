@@ -6,9 +6,9 @@ import models.UberResponse
 import play.api.libs.json.{Format, Json}
 import play.api.mvc.{AbstractController, ControllerComponents}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class RankFrontendController @Inject()(uberConnector: UberConnector, cc: ControllerComponents) extends AbstractController(cc) {
+class RankFrontendController @Inject()(uberConnector: UberConnector, cc: ControllerComponents)(implicit ec: ExecutionContext) extends AbstractController(cc) {
 
   def availableUbers: Future[UberResponse] = ???
 
@@ -24,15 +24,21 @@ class RankFrontendController @Inject()(uberConnector: UberConnector, cc: Control
   implicit val liftFormats: Format[Lift] = Json.format[Lift]
   implicit val availableLiftsFormats: Format[AvailableLifts] = Json.format[AvailableLifts]
 
-  case class PositionRequested(latitude: Float, longitude: Float)
+  val latitude = "37.7752315"
+  val longitude = "122.418075"
 
+  val position = PositionRequested(latitude, longitude)
 
-
-  def availableLifties(latitude: Float, longitude: Float) = Action { _ =>
+  def availableLifties() = Action { _ =>
     val liftsAsJson = Json.toJson(lifts)
 
-    val availableUbers = uberConnector.getUbers(latitude, longitude)
-
+    val availableUbers = uberConnector.getUbers(position)
+    availableUbers.map( a => {
+        println(a.json)
+    })
     Ok(liftsAsJson)
   }
 }
+
+case class PositionRequested(latitude: String, longitude: String)
+

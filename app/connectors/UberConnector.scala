@@ -1,18 +1,19 @@
 package connectors
 
 import com.uber.sdk.core.client.{ServerTokenSession, SessionConfiguration}
+import controllers.PositionRequested
 import javax.inject.Inject
 import play.api.libs.ws.WSClient
 import play.api.mvc.{AbstractController, ControllerComponents}
 
 class UberConnector @Inject()(ws: WSClient, cc: ControllerComponents) extends AbstractController(cc) {
 
-  def getUbers(latitude: Float, longitude: Float) = {
+  def getUbers(positionRequested: PositionRequested) = {
     val endpoint = s"https://api.uber.com/v1.2/products"
-    setConfig("ENTER CLIENT ID HERE", "")
+    setConfig("oSaaXZLlw21kHdAct-rqdFLSGIf6t6HZ", "")
 
     val request = ws.url(endpoint).
-      withQueryStringParameters((latitude.toString, longitude.toString)).
+      withQueryStringParameters((positionRequested.latitude, positionRequested.longitude)).
       addHttpHeaders(
         "ACCEPT" -> "application/json"
       ).get()
@@ -26,7 +27,12 @@ class UberConnector @Inject()(ws: WSClient, cc: ControllerComponents) extends Ab
       .setServerToken(serverToken)
       .build()
 
-     new ServerTokenSession(config) // is this line necessary?
+     new ServerTokenSession(config)
+
+//    val credentials: OAuth2C = new OAuth2Credentials.Builder()
+//      .setSessionConfiguration(config)
+//      .build();
+    // is this line necessary?
   }
 }
  // could base64 the codes
